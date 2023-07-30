@@ -1,9 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Add User</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+    {% block title %}
+        Add user
+    {% endblock %}
+{% block body %}
+    
+
     <h1>Add User</h1>
     <form method="post">
         <label for="name">Name:</label>
@@ -17,5 +19,11 @@
         <br>
         <input type="submit" value="Add">
     </form>
-</body>
-</html>
+    <br>
+    <br>
+    <br>
+
+
+    <a href="/show" class="btn btn-primary">registared users</a>
+
+    {% endblock %}

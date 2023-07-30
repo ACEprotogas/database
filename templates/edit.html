@@ -1,9 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Edit User</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block title %}
+    Edit
+{% endblock %}
+{% block body %}
+    
+
     <h1>Edit User</h1>
     <form method="post">
         <label for="name">Name:</label>
@@ -17,5 +18,4 @@
         
         <button type="submit">Save Changes</button>
     </form>
-</body>
-</html>
+    {% endblock %}
