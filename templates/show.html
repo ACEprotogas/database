@@ -23,6 +23,7 @@
             <th>Name</th>
             <th>Email</th>
             <th>Phone</th>
+            <th>Correction</th>
         </tr>
         {% for user in users %}
         <tr>
@@ -31,9 +32,9 @@
             <td>{{ user.phone }}</td>
             <td>
                 <form method="post" action="{{ url_for('delete_user', user_id=user.id) }}" style="display: inline;">
-                    <button type="submit">Delete</button>
+                    <button class="btn btn-danger" type="submit">Delete</button>
                 </form>
-                <a href="{{ url_for('edit_user', user_id=user.id) }}">Edit</a>
+                <a class="btn btn-success" href="{{ url_for('edit_user', user_id=user.id) }}">Edit</a>
             </td>
         </tr>
         {% endfor %}
