@@ -71,8 +71,10 @@ def edit_user(user_id):
     return render_template('edit.html', user=user)
 
 
-
+@app.route('/favicon.ico')
+def favicon():
+    return app.send_static_file('favicon.ico')
 
 if __name__ == "__main__":
-    app.run()(debug=True)
+    app.run(debug=True)
 
