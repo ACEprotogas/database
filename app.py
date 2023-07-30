@@ -15,6 +15,16 @@ class User(db.Model):
 
     def __repr__(self):
         return f'<User {self.name}>'
+    
+class UserInfo(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False, unique=True)
+    age = db.Column(db.Integer, nullable=False)
+    sex = db.Column(db.String(10), nullable=False)
+    income = db.Column(db.Float, nullable=False)
+
+    user = db.relationship('User', backref=db.backref('info', uselist=False))
+
 
 @app.before_request   
 def create_tables():
@@ -58,7 +68,7 @@ def delete_user(user_id):
     flash('User deleted successfully!', 'success')
     return redirect(url_for('show'))
 
-@app.route('/edit/<int:user_id>', methods=['GET', 'POST'])
+@app.route('/edit/<int:user_id>', methods=['GET', 'POST'])  
 def edit_user(user_id):
     user = User.query.get_or_404(user_id)
     if request.method == 'POST':
@@ -69,6 +79,47 @@ def edit_user(user_id):
         flash('User information updated successfully!', 'success')
         return redirect(url_for('show'))
     return render_template('edit.html', user=user)
+
+@app.route('/user_detail/<int:user_id>', methods=['GET', 'POST'])  #this is for detail of the individual
+def user_detail(user_id):
+    user = User.query.get_or_404(user_id)
+    user_info = UserInfo.query.filter_by(user_id=user_id).first()
+    if user_info:
+        return render_template('user_detail.html', user=user, user_info=user_info)
+    else:
+        return redirect(url_for('add_user_detail', user_id=user.id))
+
+
+
+
+@app.route('/add_user_detail/<int:user_id>', methods=['GET', 'POST'])
+def add_user_detail(user_id):
+    user = User.query.get_or_404(user_id)
+    user_info = UserInfo.query.filter_by(user_id=user_id).first()
+    
+    if request.method == 'POST':
+        age = request.form['age']
+        sex = request.form['sex']
+        income = request.form['income']
+        if not user_info:
+            user_info = UserInfo(age=age, sex=sex, income=income, user_id=user_id)
+            db.session.add(user_info)
+            db.session.commit()
+            flash('Details added successfully!', 'success')
+        return redirect(url_for('show'))
+
+    return render_template('add_user_detail.html', user=user, user_info=user_info)
+
+
+
+
+
+
+
+
+
+
+
 
 
 @app.route('/favicon.ico')
