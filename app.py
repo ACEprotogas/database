@@ -50,6 +50,29 @@ def show():
     return render_template('show.html', users=users)
 
 
+@app.route('/delete/<int:user_id>', methods=['POST'])
+def delete_user(user_id):
+    user = User.query.get_or_404(user_id)
+    db.session.delete(user)
+    db.session.commit()
+    flash('User deleted successfully!', 'success')
+    return redirect(url_for('show'))
+
+@app.route('/edit/<int:user_id>', methods=['GET', 'POST'])
+def edit_user(user_id):
+    user = User.query.get_or_404(user_id)
+    if request.method == 'POST':
+        user.name = request.form['name']
+        user.email = request.form['email']
+        user.phone = request.form['phone']
+        db.session.commit()
+        flash('User information updated successfully!', 'success')
+        return redirect(url_for('show'))
+    return render_template('edit.html', user=user)
+
+
+
+
 if __name__ == "__main__":
     app.run()(debug=True)
 
