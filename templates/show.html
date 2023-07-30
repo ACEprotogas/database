@@ -36,6 +36,14 @@
                 </form>
                 <a class="btn btn-success" href="{{ url_for('edit_user', user_id=user.id) }}">Edit</a>
             </td>
+            <td>
+                {% if user.info %}
+                    <a href="{{ url_for('user_detail', user_id=user.id) }}">Details</a>
+                {% else %}
+                    <a href="{{ url_for('add_user_detail', user_id=user.id) }}">Add Details</a>
+                {% endif %}
+            </td>
+
         </tr>
         {% endfor %}
     </table>

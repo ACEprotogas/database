@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Add details
+{% endblock %}
+
+{% block body %}
+<h1>Add Details for {{ user.name }}</h1>
+<form method="POST">
+    <label for="age">Age:</label>
+    <input type="number" name="age" required>
+    <br>
+
+    <label for="sex">Sex:</label>
+    <select name="sex" required>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other</option>
+    </select>
+    <br>
+
+    <label for="income">Income:</label>
+    <input type="number" name="income" required>
+    <br>
+
+    <input type="submit" value="Submit">
+</form>
+{% endblock %}

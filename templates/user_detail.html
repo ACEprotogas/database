@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    DETAILS
+{% endblock %}
+
+{% block body %}
+<h1>User Details for {{ user.name }}</h1>
+<p>Name: {{ user.name }}</p>
+<p>Email: {{ user.email }}</p>
+<p>Phone: {{ user.phone }}</p>
+
+{% if user_info %}
+    <h2>Details</h2>
+    <p>Age: {{ user_info.age }}</p>
+    <p>Sex: {{ user_info.sex }}</p>
+    <p>Income: {{ user_info.income }}</p>
+{% else %}
+    <p>No details available. <a href="{{ url_for('add_user_detail', user_id=user.id) }}">Add details</a></p>
+{% endif %}
+
+
+<a  class="btn btn-primary" href="/show">&#8592 &#8592 &#8592</a>
+{% endblock %}
